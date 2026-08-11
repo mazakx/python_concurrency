@@ -1,6 +1,6 @@
 import requests
 import time
-
+import threading
 
 def fetch(delay: int) -> str:
     url = f"https://httpbin.org/delay/{delay}"
@@ -16,7 +16,8 @@ def main() -> None:
         result = fetch(delay)
         elapsed = time.perf_counter() - start
         output.append(result)
-        print(f"{number} request returned in {elapsed:.4f} seconds")
+        print(f"Starting delay={delay} on {threading.current_thread().name }"
+              f"{number} request returned in {elapsed:.4f} seconds ")
     print(output)
 
     total = time.perf_counter() - start
