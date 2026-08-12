@@ -10,7 +10,7 @@ def fetch(delay: int) -> str:
 
 def main() -> None:
     start = time.perf_counter()
-    delays = [0,1,2,3,4,5,5]
+    delays = [0,1,2,3,4,5,6]
     output = []
     for number,delay in enumerate(delays, start = 1):
         result = fetch(delay)
