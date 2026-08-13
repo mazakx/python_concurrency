@@ -3,7 +3,7 @@ import time
 import threading
 
 def fetch(delay: int) -> str:
-    url = f"https://httpbin.org/delay/{delay}"
+    url = f"http://localhost:8080/delay/{delay}"
     response = requests.get(url)
     response.raise_for_status()
     return response.json()["url"]
