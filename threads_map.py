@@ -1,6 +1,7 @@
 import requests
 import time
 import threading
+import sys
 from concurrent.futures import ThreadPoolExecutor
 
 def fetch(delay: int) -> str:
@@ -15,7 +16,7 @@ def fetch(delay: int) -> str:
 def main() -> None:
     start = time.perf_counter()
     delays = [0,1,2,3,4,5,6]
-    with ThreadPoolExecutor(max_workers=2) as executor:
+    with ThreadPoolExecutor(max_workers=int(sys.argv[1])) as executor:
         results = executor.map(fetch,delays)
         output = list(results)
     print(output)
