@@ -2,7 +2,7 @@ import requests
 import time
 import threading
 
-def fetch(delay: int) -> str:
+def fetch(client: requests.Session, delay: int) -> str:
     start = time.perf_counter()
 
     print(
@@ -11,7 +11,7 @@ def fetch(delay: int) -> str:
     )
 
     url = f"http://localhost:8080/delay/{delay}"
-    response = requests.get(url)
+    response = client.get(url)
     response.raise_for_status()
     
     print(
@@ -27,9 +27,14 @@ def main() -> None:
     delays = [0,1,2,3,4,5,6]
     output = []
 
-    for delay in delays:
-        result = fetch(delay)
-        output.append(result)
+    # A Session persists configuration and cookies across requests.
+    # It also uses urllib3 connection pooling, so repeated requests to the
+    # same host can reuse underlying TCP connections instead of creating
+    # new ones. This can reduce repeated connection setup overhead.
+    with requests.Session() as client:
+        for delay in delays:
+            result = fetch(client, delay)
+            output.append(result)
 
     print(output)
     total = time.perf_counter() - start
