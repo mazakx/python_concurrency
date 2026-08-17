@@ -6,7 +6,7 @@ import threading
 # The async def syntax defines a coroutine function. Calling a coroutine
 # function does not run the function, instead it creates a coroutine object
 # so calling the below function would return something like: 
-# <coroutine object fetch at 0x...>
+# <coroutine object fetch at 0x...> which is an awaitable
 async def fetch(client: httpx.AsyncClient, delay: int) -> str:
     start = time.perf_counter()
 
